@@ -5,7 +5,7 @@ import {ECharts} from 'react-native-echarts-wrapper';
 export default class App extends Component {
   constructor() {
     super();
-    this.option = {
+    this.lineOption = {
       xAxis: {
         type: 'category',
         data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -15,7 +15,7 @@ export default class App extends Component {
       },
       series: [
         {
-          data: [820, 932, 901, 934, 1290, 1330, 1320],
+          data: [5, 6, 7, 8, 4, 6, 5],
           type: 'line',
         },
       ],
@@ -23,16 +23,16 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    var data = [820, 932, 901, 934, 1290, 1330, 1320];
+    var data = [5, 6, 7, 8, 4, 6, 5];
     setInterval(() => {
-      data.shift()
-      data.push()
-    });
+      data.shift();
+      data.push(Math.round(Math.random() * 9));
+    }, 1000);
   }
 
-  onRef = (ref) => {
+  lineRef = (ref) => {
     if (ref) {
-      this.chart = ref;
+      this.lineChart = ref;
     }
   };
 
@@ -40,10 +40,17 @@ export default class App extends Component {
     return (
       <SafeAreaView style={styles.chartContainer}>
         <ECharts
-          ref={this.onRef}
-          option={this.option}
+          ref={this.lineRef}
+          option={this.lineOption}
           onLoadEnd={() => {
-            this.chart.setBackgroundColor('rgba(93, 169, 81, 0.1)');
+            this.lineChart.setBackgroundColor('rgba(93, 169, 81, 0.1)');
+          }}
+        />
+        <ECharts
+          ref={this.lineRef}
+          option={this.lineOption}
+          onLoadEnd={() => {
+            this.lineChart.setBackgroundColor('rgba(93, 169, 81, 0.1)');
           }}
         />
       </SafeAreaView>
@@ -106,8 +113,8 @@ const styles = StyleSheet.create({
 //   ],
 // };
 
-// this.chart.setOption(option);
-// // const instance = this.chart;
+// this.lineChart.setOption(option);
+// // const instance = this.lineChart;
 
 // setInterval(() => {
 //   // for (var i = 0; i < 5; i++) {
@@ -116,7 +123,7 @@ const styles = StyleSheet.create({
 //   data.push(randomData());
 //   // }
 
-//   this.chart.setOption({
+//   this.lineChart.setOption({
 //     series: [
 //       {
 //         data: [curr],
