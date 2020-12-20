@@ -6,6 +6,9 @@ export default class App extends Component {
   constructor() {
     super();
     this.lineOption = {
+      title: {
+        text: 'Line',
+      },
       xAxis: {
         type: 'category',
         data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -20,13 +23,52 @@ export default class App extends Component {
         },
       ],
     };
+
+    this.gaugeOption = {
+      title: {
+        text: 'Gauge',
+      },
+      tooltip: {
+        // formatter: '{a} <br/> {b}: {c}%',
+        // trigger: "axis",
+        formatter: function (params) {
+          params = params[0];
+          return params.name + ':' + parseInt(params.value[1]);
+        },
+      },
+      series: [
+        {
+          name: 'O2',
+          type: 'gauge',
+          // details: {formatter: '{value}%'},
+          // data: [{value: 45, name: 'percentage'}],
+          data: [{value: 0, name: 'O2'}],
+        },
+      ],
+    };
   }
 
   componentDidMount() {
     var data = [5, 6, 7, 8, 4, 6, 5];
     setInterval(() => {
+      var curr = Math.round(Math.random() * 9);
       data.shift();
-      data.push(Math.round(Math.random() * 9));
+      data.push(curr);
+      this.lineChart.setOption({
+        series: [
+          {
+            data: data,
+          },
+        ],
+      });
+
+      this.gaugeChart.setOption({
+        series: [
+          {
+            data: [{value: curr, name: 'O2'}],
+          },
+        ],
+      });
     }, 1000);
   }
 
@@ -36,14 +78,20 @@ export default class App extends Component {
     }
   };
 
+  gaugeRef = (ref) => {
+    if (ref) {
+      this.gaugeChart = ref;
+    }
+  };
+
   render() {
     return (
       <SafeAreaView style={styles.chartContainer}>
         <ECharts
-          ref={this.lineRef}
-          option={this.lineOption}
+          ref={this.gaugeRef}
+          option={this.gaugeOption}
           onLoadEnd={() => {
-            this.lineChart.setBackgroundColor('rgba(93, 169, 81, 0.1)');
+            this.gaugeChart.setBackgroundColor('rgba(93, 169, 81, 0.3)');
           }}
         />
         <ECharts
