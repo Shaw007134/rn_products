@@ -2,7 +2,10 @@ import React, {Component} from 'react';
 import {View, Text} from 'react-native';
 import TabNavigator from 'react-native-tab-navigator';
 import Svg from 'react-native-svg-uri';
+import Chart from './pages/Demo';
 import {
+  product,
+  order,
   friend,
   selectedFriend,
   group,
@@ -13,6 +16,7 @@ import {
   selectedMy,
 } from './res/fonts/iconSvg';
 import Friend from './pages/friend/home';
+import Product from './pages/product/home';
 import Group from './pages/group/home';
 import Message from './pages/message/home';
 import My from './pages/my/home';
@@ -36,23 +40,23 @@ class Index extends Component {
   state = {
     pages: [
       {
-        selected: 'friend',
-        title: '交友',
-        renderIcon: () => <Svg width="20" height="20" svgXmlData={friend} />,
+        selected: 'product',
+        title: '产品',
+        renderIcon: () => <Svg width="20" height="20" svgXmlData={product} />,
         renderSelectedIcon: () => (
-          <Svg width="20" height="20" svgXmlData={selectedFriend} />
+          <Svg width="20" height="20" svgXmlData={product} />
         ),
-        onPress: () => this.setState({selectedTab: 'friend'}),
-        component: <Friend />,
+        onPress: () => this.setState({selectedTab: 'product'}),
+        component: <Product />,
       },
       {
         selected: 'group',
-        title: '圈子',
-        renderIcon: () => <Svg width="20" height="20" svgXmlData={group} />,
+        title: '工单',
+        renderIcon: () => <Svg width="20" height="20" svgXmlData={friend} />,
         renderSelectedIcon: () => (
-          <Svg width="20" height="20" svgXmlData={selectedGroup} />
+          <Svg width="20" height="20" svgXmlData={selectFriend} />
         ),
-        onPress: () => this.setState({selectedTab: 'group'}),
+        onPress: () => this.setState({selectedTab: 'order'}),
         component: <Group />,
       },
       {
@@ -80,7 +84,7 @@ class Index extends Component {
   constructor(props) {
     super(props);
     // selectedTab: "group",
-    let selectedTab = 'friend';
+    let selectedTab = 'product';
     if (this.props.route.params && this.props.route.params.pagename) {
       selectedTab = this.props.route.params.pagename;
     }

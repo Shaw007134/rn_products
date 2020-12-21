@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {StyleSheet, SafeAreaView, Button} from 'react-native';
 import {ECharts} from 'react-native-echarts-wrapper';
+import THNav from '../../components/THNav';
 
 export default class App extends Component {
   // state = {
@@ -75,7 +76,7 @@ export default class App extends Component {
     var lineData = this.lineData;
     var gaugeData = this.gaugeData;
     // var now = this.now;
-    setInterval(() => {
+    this.timer = setInterval(() => {
       var curr = Math.round(Math.random() * 9);
       this.now = this.now + 1000;
 
@@ -112,9 +113,14 @@ export default class App extends Component {
     }
   };
 
+  onBack = () => {
+    clearInterval(this.timer);
+  };
+
   render() {
     return (
       <SafeAreaView style={styles.chartContainer}>
+        <THNav onPress={this.onBack} title="实时监控" />
         <ECharts
           ref={this.gaugeRef}
           option={this.gaugeOption}

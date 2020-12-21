@@ -29,6 +29,8 @@ export default {
 
   iconxihuan: '\ue634',
 
+  iconrate: '\ue606',
+
   iconwenjian: '\ue68f',
 
   iconservice: '\ue7bb',

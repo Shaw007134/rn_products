@@ -37,8 +37,8 @@ class Nav extends React.Component {
     const {initialRouteName} = this.state;
     return (
       <NavigationContainer>
-        <Stack.Navigator headerMode="none" initialRouteName={Demo}>
-          <Stack.Screen name="Demo" component={Demo} />
+        <Stack.Navigator headerMode="none" initialRouteName={Tabbar}>
+          <Stack.Screen name="Tabbar" component={Tabbar} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="UserInfo" component={UserInfo} />
           <Stack.Screen name="Settings" component={Settings} />
@@ -49,13 +49,13 @@ class Nav extends React.Component {
           <Stack.Screen name="Publish" component={Publish} />
           <Stack.Screen name="Comment" component={Comment} />
           <Stack.Screen name="Chat" component={Chat} />
+          <Stack.Screen name="Chart" component={Demo} />
           <Stack.Screen name="Detail" component={Detail} />
           <Stack.Screen name="TestResult" component={TestResult} />
           <Stack.Screen name="TestQA" component={TestQA} />
           <Stack.Screen name="TestSoul" component={TestSoul} />
           <Stack.Screen name="Search" component={Search} />
           <Stack.Screen name="TanHua" component={TanHua} />
-          <Stack.Screen name="Tabbar" component={Tabbar} />
         </Stack.Navigator>
       </NavigationContainer>
     );
