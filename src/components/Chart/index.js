@@ -3,22 +3,44 @@ import {StyleSheet, SafeAreaView, Button} from 'react-native';
 import {ECharts} from 'react-native-echarts-wrapper';
 
 export default class App extends Component {
+  // state = {
+  //   data: [],
+  // };
   constructor() {
     super();
+    var lineData = [];
+    var gaugeData = [];
+    var oneSecond = 1000;
+    // this.now = new Date(2020, 12, 20);
+    var now = new Date().getTime() - 20 * 1000; //获取当前时间戳
+    var times;
+    console.log('constructor...');
+
+    for (var i = 0; i < 20; i++) {
+      times = now + i * 1000;
+      var temp = {
+        name: 'O2',
+        value: [times, 0],
+      };
+      lineData.push(temp);
+    }
+    this.now = times;
+    this.lineData = lineData;
     this.lineOption = {
       title: {
         text: 'Line',
       },
       xAxis: {
-        type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        type: 'time',
+        // data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        // [5, 6, 7, 8, 4, 6, 5]
       },
       yAxis: {
         type: 'value',
       },
       series: [
         {
-          data: [5, 6, 7, 8, 4, 6, 5],
+          data: lineData,
           type: 'line',
         },
       ],
@@ -49,15 +71,21 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    var data = [5, 6, 7, 8, 4, 6, 5];
+    console.log('did mount');
+    var lineData = this.lineData;
+    var gaugeData = this.gaugeData;
+    // var now = this.now;
     setInterval(() => {
       var curr = Math.round(Math.random() * 9);
-      data.shift();
-      data.push(curr);
+      this.now = this.now + 1000;
+
+      lineData.shift();
+      lineData.push([this.now, curr]);
+      this.lineData = lineData;
       this.lineChart.setOption({
         series: [
           {
-            data: data,
+            data: lineData,
           },
         ],
       });
@@ -65,7 +93,7 @@ export default class App extends Component {
       this.gaugeChart.setOption({
         series: [
           {
-            data: [{value: curr, name: 'O2'}],
+            data: [{name: 'O2', value: curr}],
           },
         ],
       });
