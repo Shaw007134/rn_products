@@ -6,8 +6,8 @@ import ProductHead from './components/ProductHead';
 import Visitors from './components/Visitors';
 import PerfectGirl from './components/PerfectGirl';
 import request from '../../../utils/request';
-import {rate} from '../../../res/fonts/iconSvg';
-import SvgUri from 'react-native-svg-uri';
+import {rate, product} from '../../../res/fonts/iconSvg';
+import Svg from 'react-native-svg-uri';
 import {FRIENDS_RECOMMEND, BASE_URI} from '../../../utils/pathMap';
 import IconFont from '../../../components/IconFont';
 import {Overlay} from 'teaset';
@@ -194,7 +194,12 @@ class Index extends Component {
                       name="iconrate"
                       style={{color: 'red', fontSize: pxToDp(30)}}
                     /> */}
-                     <SvgUri width="23" height="23" color='red' svgXmlData={rate} />
+                    <Svg
+                      width="23"
+                      height="23"
+                      border="1px solid red"
+                      svgXmlData={rate}
+                    />
                     <Text style={{color: '#666'}}>{v.recomm}</Text>
                   </View>
                 </TouchableOpacity>

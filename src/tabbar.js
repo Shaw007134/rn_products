@@ -5,6 +5,7 @@ import Svg from 'react-native-svg-uri';
 import Chart from './pages/Demo';
 import {
   product,
+  rate,
   order,
   friend,
   selectedFriend,
